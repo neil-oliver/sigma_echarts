@@ -1,4 +1,4 @@
-export type ChartType = 'bar' | 'line' | 'scatter' | 'pie' | 'area' | 'nightingale' | 'treemap' | 'calendar' | 'sunburst';
+export type ChartType = 'bar' | 'line' | 'scatter' | 'pie' | 'area' | 'nightingale' | 'treemap' | 'calendar' | 'sunburst' | 'gantt';
 
 export type ThemePreset = 'default' | 'vintage' | 'dark' | 'custom';
 
@@ -30,7 +30,7 @@ export interface BaseChartConfig {
 }
 
 // Common interface for cartesian properties
-interface CartesianConfig extends BaseChartConfig {
+export interface CartesianConfig extends BaseChartConfig {
   xField?: string;
   yField?: string;
   groupField?: string;
@@ -84,5 +84,14 @@ export interface SunburstChartConfig extends BaseChartConfig {
   groupField?: string;
 }
 
+export interface GanttChartConfig extends BaseChartConfig {
+  taskField?: string;
+  startField?: string;
+  endField?: string;
+  progressField?: string;
+  groupField?: string;
+  showProgress?: boolean;
+}
+
 export type CartesianChartConfig = LineChartConfig | BarChartConfig | ScatterChartConfig | AreaChartConfig;
-export type ChartConfig = CartesianChartConfig | PieChartConfig | NightingaleChartConfig | TreemapChartConfig | CalendarChartConfig | PresetConfig | StyleConfig | SunburstChartConfig; 
+export type ChartConfig = CartesianChartConfig | PieChartConfig | NightingaleChartConfig | TreemapChartConfig | CalendarChartConfig | PresetConfig | StyleConfig | SunburstChartConfig | GanttChartConfig; 
