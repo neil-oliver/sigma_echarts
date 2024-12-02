@@ -1,4 +1,5 @@
-import { WorkbookElementColumns } from "@sigmacomputing/plugin";
+import { WorkbookElementColumns, WorkbookElementData } from "@sigmacomputing/plugin";
+import type { GanttChartConfig } from '../types/uiTypes';
 
 export interface AggregatedDataItem {
   value: number;
@@ -241,5 +242,68 @@ export const transformToEChartsDataset = (
       return row;
     })
   };
+};
+
+export interface GanttTask {
+  name: string;
+  start: number;
+  end: number;
+  progress?: number;
+  group?: string;
+}
+
+export const aggregateGanttData = (
+  data: WorkbookElementData,
+  elementColumns: WorkbookElementColumns,
+  config: GanttChartConfig
+) => {
+  // Early return if required fields are missing
+  if (!config.taskField || !config.startField || !config.endField) {
+    return { tasks: [], minDate: 0, maxDate: 0 };
+  }
+
+  const taskArray = data[config.taskField] || [];
+  const startArray = data[config.startField] || [];
+  const endArray = data[config.endField] || [];
+  const progressArray = config.progressField ? data[config.progressField] : [];
+  const groupArray = config.groupField ? data[config.groupField] : [];
+
+  // Early return if required arrays are empty
+  if (taskArray.length === 0 || startArray.length === 0 || endArray.length === 0) {
+    return { tasks: [], minDate: 0, maxDate: 0 };
+  }
+
+  const tasks: GanttTask[] = [];
+
+  let minDate = Infinity;
+  let maxDate = -Infinity;
+
+  for (let i = 0; i < taskArray.length; i++) {
+    const start = new Date(startArray[i]).getTime();
+    const end = new Date(endArray[i]).getTime();
+
+    if (!isNaN(start) && !isNaN(end)) {
+      minDate = Math.min(minDate, start);
+      maxDate = Math.max(maxDate, end);
+
+      tasks.push({
+        name: taskArray[i],
+        start,
+        end,
+        progress: progressArray ? progressArray[i] : undefined,
+        group: groupArray ? groupArray[i] : undefined
+      });
+    }
+  }
+
+  // Sort tasks by group (if exists) and start date
+  tasks.sort((a, b) => {
+    if (a.group && b.group && a.group !== b.group) {
+      return a.group.localeCompare(b.group);
+    }
+    return a.start - b.start;
+  });
+
+  return { tasks, minDate, maxDate };
 };
 

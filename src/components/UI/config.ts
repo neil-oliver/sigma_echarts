@@ -12,6 +12,8 @@ import { getStyleConfig } from './styleConfig';
 import { getChartTypeConfig } from './chartConfig';
 import { getTreemapChartConfig } from './treemapConfig';
 import { getCalendarChartConfig } from './calendarConfig';
+import { getSunburstChartConfig } from './sunburstConfig';
+import { getGanttChartConfig } from './ganttConfig';
 
 // Map chart types to their config functions
 const CHART_CONFIG_MAP = {
@@ -22,7 +24,9 @@ const CHART_CONFIG_MAP = {
   area: getAreaChartConfig,
   nightingale: getNightingaleChartConfig,
   treemap: getTreemapChartConfig,
-  calendar: getCalendarChartConfig
+  calendar: getCalendarChartConfig,
+  sunburst: getSunburstChartConfig,
+  gantt: getGanttChartConfig
 } as const;
 
 export const initializeEditorPanel = () => {
