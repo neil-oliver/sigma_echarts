@@ -10,6 +10,7 @@ import { getPieChartOptions } from "./charts/pieChart";
 import { getNightingaleChartOptions } from "./charts/nightingaleChart";
 import { getTreemapChartOptions } from "./charts/treemapChart";
 import { getCalendarChartOptions } from "./charts/calendarChart";
+import { getSunburstChartOptions } from "./charts/sunburstChart";
 
 export const getChartOptions = (data: WorkbookElementData, elementColumns: WorkbookElementColumns, config: ChartConfig): EChartsOption => {
   switch (config.chartType) {
@@ -29,6 +30,8 @@ export const getChartOptions = (data: WorkbookElementData, elementColumns: Workb
       return getTreemapChartOptions(data, elementColumns, config);
     case 'calendar':
       return getCalendarChartOptions(data, elementColumns, config);
+    case 'sunburst':
+      return getSunburstChartOptions(data, elementColumns, config);
     default:
       return getBarChartOptions(data, elementColumns, config);
   }

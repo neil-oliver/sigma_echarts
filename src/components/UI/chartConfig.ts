@@ -11,7 +11,7 @@ export const getChartTypeConfig = (): CustomPluginConfigOptions[] => [
         label: 'Chart Type',
         type: 'dropdown',
         defaultValue: 'bar',
-        values: ['bar', 'line', 'scatter', 'area', 'pie', 'nightingale', 'treemap', 'calendar'],
+        values: ['bar', 'line', 'scatter', 'area', 'pie', 'nightingale', 'treemap', 'calendar', 'sunburst'],
         source: 'chartSelectionSettings'
     }
 ]; 

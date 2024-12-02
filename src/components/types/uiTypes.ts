@@ -1,4 +1,4 @@
-export type ChartType = 'bar' | 'line' | 'scatter' | 'pie' | 'area' | 'nightingale' | 'treemap' | 'calendar';
+export type ChartType = 'bar' | 'line' | 'scatter' | 'pie' | 'area' | 'nightingale' | 'treemap' | 'calendar' | 'sunburst';
 
 export type ThemePreset = 'default' | 'vintage' | 'dark' | 'custom';
 
@@ -78,5 +78,11 @@ export interface TreemapChartConfig extends BaseChartConfig {
   groupField?: string;
 }
 
+export interface SunburstChartConfig extends BaseChartConfig {
+  sectorField?: string;
+  valueField?: string;
+  groupField?: string;
+}
+
 export type CartesianChartConfig = LineChartConfig | BarChartConfig | ScatterChartConfig | AreaChartConfig;
-export type ChartConfig = CartesianChartConfig | PieChartConfig | NightingaleChartConfig | TreemapChartConfig | CalendarChartConfig | PresetConfig | StyleConfig; 
+export type ChartConfig = CartesianChartConfig | PieChartConfig | NightingaleChartConfig | TreemapChartConfig | CalendarChartConfig | PresetConfig | StyleConfig | SunburstChartConfig; 

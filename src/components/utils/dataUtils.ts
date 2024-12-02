@@ -117,16 +117,16 @@ export const aggregateData = (
   return aggregatedData;
 };
 
-export interface TreemapDataItem {
+export interface HierarchicalDataItem {
   name: string;
   value: number;
-  children?: TreemapDataItem[];
+  children?: HierarchicalDataItem[];
 }
 
-export const transformToTreemapData = (
+export const transformToHierarchicalData = (
   aggregated: ReturnType<typeof aggregateData>,
   config: { groupField?: string }
-): TreemapDataItem[] => {
+): HierarchicalDataItem[] => {
   // For non-grouped data
   if (!config.groupField) {
     return Object.entries(aggregated).map(([category, value]) => ({
@@ -136,14 +136,14 @@ export const transformToTreemapData = (
   }
 
   // For grouped data
-  const result: TreemapDataItem[] = [];
+  const result: HierarchicalDataItem[] = [];
   
   Object.entries(aggregated).forEach(([category, valueObj]) => {
     // Skip if not an object (shouldn't happen with groupField)
     if (typeof valueObj !== 'object' || valueObj === null) return;
 
     // Create category node
-    const categoryNode: TreemapDataItem = {
+    const categoryNode: HierarchicalDataItem = {
       name: category,
       value: 0,
       children: []
