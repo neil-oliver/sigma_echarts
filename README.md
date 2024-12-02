@@ -18,6 +18,8 @@ Hosted Plugin:[https://sigma-echarts.netlify.app](https://sigma-echarts.netlify.
 - Nightingale Rose Chart
 - Treemap
 - Calendar Heat Map
+- Gantt Chart
+- Sunburst Chart
 
 ## Features
 
@@ -59,6 +61,19 @@ Hosted Plugin:[https://sigma-echarts.netlify.app](https://sigma-echarts.netlify.
 - Date-based heat map visualization
 - Perfect for temporal data analysis
 
+#### Gantt Chart
+- Task timeline visualization
+- Start and end date mapping
+- Progress tracking
+- Group-based organization
+- Customizable progress display
+
+#### Sunburst Chart
+- Hierarchical data visualization
+- Category and value mapping
+- Group-based hierarchies
+- Radial layout visualization
+
 ### Styling Options
 
 #### Theme Presets
@@ -89,3 +104,15 @@ Hosted Plugin:[https://sigma-echarts.netlify.app](https://sigma-echarts.netlify.
 2. Customize colors, fonts, and other visual elements
 3. Enable/disable features like data labels and gradients
 4. For advanced customization, use the Custom Theme JSON option
+
+#### Gantt Chart Setup
+1. Map your task names to the Task Name field
+2. Configure Start Date and End Date fields
+3. Optionally set Progress percentage
+4. Use Group field for task categorization
+5. Toggle progress display as needed
+
+#### Sunburst Chart Setup
+1. Map your categories to the Category field
+2. Set numerical values in the Value field
+3. Use Group By for hierarchical organization
