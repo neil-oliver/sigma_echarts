@@ -51,14 +51,24 @@ export const getCartesianChartOptions = (
     tooltip: {
       trigger: 'axis',
       formatter: (params: any) => {
-        const param = Array.isArray(params) ? params[0] : params;
+        if (!Array.isArray(params)) {
+          params = [params];
+        }
+        
         const xValue = xColumnType === 'datetime' 
-          ? new Date(param.axisValue).toLocaleDateString()
-          : param.axisValue;
-        const yValue = yColumnType === 'datetime' 
-          ? new Date(param.value).toLocaleDateString()
-          : param.value;
-        return `${xValue}: ${yValue}`;
+          ? new Date(params[0].axisValue).toLocaleDateString()
+          : params[0].axisValue;
+
+        const lines = params.map((param: any) => {
+          const value = param.value[param.dimensionNames[param.encode.y[0]]];
+          const formattedValue = yColumnType === 'datetime' 
+            ? new Date(value).toLocaleDateString()
+            : value;
+          
+          return `${param.marker} ${param.seriesName}: ${formattedValue}`;
+        });
+
+        return `${xValue}<br/>${lines.join('<br/>')}`;
       }
     },
     toolbox: {
