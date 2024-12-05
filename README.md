@@ -19,6 +19,7 @@ Hosted Plugin:[https://sigma-echarts.netlify.app](https://sigma-echarts.netlify.
 - Treemap
 - Calendar Heat Map
 - Gantt Chart
+- Heatmap
 - Sunburst Chart
 
 ## Features
@@ -60,6 +61,14 @@ Hosted Plugin:[https://sigma-echarts.netlify.app](https://sigma-echarts.netlify.
 #### Calendar Chart
 - Date-based heat map visualization
 - Perfect for temporal data analysis
+
+#### Heatmap Chart
+- Two-dimensional data visualization
+- Customizable color gradient
+- Interactive tooltips
+- Optional data labels
+- Automatic value range calculation
+- Perfect for correlation and density analysis
 
 #### Gantt Chart
 - Task timeline visualization
