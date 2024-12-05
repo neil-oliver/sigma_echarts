@@ -18,11 +18,34 @@ export const aggregateData = (
     valueField?: string;
     dateField?: string;
   }
-): Record<string, AggregatedDataItem | number> => {
-  // Get column types from elementColumns
-  const xColumnType = config.xField ? elementColumns[config.xField]?.columnType : undefined;
-  const yColumnType = config.yField ? elementColumns[config.yField]?.columnType : undefined;
+): Record<string, any> => {
+  // Special handling for heatmap data when all three fields are present
+  if (config.xField && config.yField && config.valueField) {
+    const xArray = data[config.xField] || [];
+    const yArray = data[config.yField] || [];
+    const valueArray = data[config.valueField] || [];
 
+    const aggregatedData: { [key: string]: { [key: string]: number } } = {};
+
+    for (let i = 0; i < xArray.length; i++) {
+      const x = xArray[i];
+      const y = yArray[i];
+      const value = parseFloat(String(valueArray[i])) || 0;
+
+      if (!x || !y || isNaN(value)) continue;
+
+      if (!aggregatedData[y]) {
+        aggregatedData[y] = {};
+      }
+      
+      // Sum values for the same x,y coordinate
+      aggregatedData[y][x] = (aggregatedData[y][x] || 0) + value;
+    }
+
+    return aggregatedData;
+  }
+
+  // Original aggregation logic for other chart types
   const categoryArray = config.xField ? data[config.xField] 
     : config.categoryField ? data[config.categoryField]
     : config.sectorField ? data[config.sectorField]
@@ -37,6 +60,10 @@ export const aggregateData = (
   if (!categoryArray || !valueArray) {
     return {};
   }
+
+  // Get column types from elementColumns
+  const xColumnType = config.xField ? elementColumns[config.xField]?.columnType : undefined;
+  const yColumnType = config.yField ? elementColumns[config.yField]?.columnType : undefined;
 
   // Format x-axis values based on column type
   const formattedCategoryArray = categoryArray.map(value => {
@@ -209,6 +236,25 @@ export interface EChartsDataset {
 export const transformToEChartsDataset = (
   aggregated: ReturnType<typeof aggregateData>
 ): EChartsDataset => {
+  // Special handling for heatmap data structure
+  if (Object.values(aggregated)[0] && typeof Object.values(aggregated)[0] === 'object') {
+    const allXValues = new Set<string>();
+    Object.values(aggregated).forEach(row => {
+      Object.keys(row).forEach(x => allXValues.add(x));
+    });
+
+    // For heatmaps, convert to array of [x, y, value] format
+    return {
+      dimensions: ['x', 'y', 'value'],
+      source: Object.entries(aggregated).flatMap(([y, xValues]) =>
+        Object.entries(xValues).map(([x, value]) => ({
+          x, y, value
+        }))
+      )
+    };
+  }
+
+  // Original transformation logic for other chart types
   const firstValue = Object.values(aggregated)[0];
   const isStacked = firstValue && typeof firstValue === 'object';
 

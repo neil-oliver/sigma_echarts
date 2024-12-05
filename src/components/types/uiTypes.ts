@@ -1,4 +1,4 @@
-export type ChartType = 'bar' | 'line' | 'scatter' | 'pie' | 'area' | 'nightingale' | 'treemap' | 'calendar' | 'sunburst' | 'gantt';
+export type ChartType = 'bar' | 'line' | 'scatter' | 'pie' | 'area' | 'nightingale' | 'treemap' | 'calendar' | 'sunburst' | 'gantt' | 'heatmap';
 
 export type ThemePreset = 'default' | 'vintage' | 'dark' | 'custom';
 
@@ -93,5 +93,11 @@ export interface GanttChartConfig extends BaseChartConfig {
   showProgress?: boolean;
 }
 
+export interface HeatmapChartConfig extends BaseChartConfig {
+  xField?: string;
+  yField?: string;
+  valueField?: string;
+}
+
 export type CartesianChartConfig = LineChartConfig | BarChartConfig | ScatterChartConfig | AreaChartConfig;
-export type ChartConfig = CartesianChartConfig | PieChartConfig | NightingaleChartConfig | TreemapChartConfig | CalendarChartConfig | PresetConfig | StyleConfig | SunburstChartConfig | GanttChartConfig; 
+export type ChartConfig = CartesianChartConfig | PieChartConfig | NightingaleChartConfig | TreemapChartConfig | CalendarChartConfig | PresetConfig | StyleConfig | SunburstChartConfig | GanttChartConfig | HeatmapChartConfig; 

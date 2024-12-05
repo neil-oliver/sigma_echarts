@@ -12,6 +12,7 @@ import { getTreemapChartOptions } from "./charts/treemapChart";
 import { getCalendarChartOptions } from "./charts/calendarChart";
 import { getGanttChartOptions } from "./charts/ganttChart";
 import { getSunburstChartOptions } from "./charts/sunburstChart";
+import { getHeatmapChartOptions } from "./charts/heatmapChart";
 
 export const getChartOptions = (data: WorkbookElementData, elementColumns: WorkbookElementColumns, config: ChartConfig): EChartsOption => {
   switch (config.chartType) {
@@ -35,6 +36,8 @@ export const getChartOptions = (data: WorkbookElementData, elementColumns: Workb
       return getSunburstChartOptions(data, elementColumns, config);
     case 'gantt':
       return getGanttChartOptions(data, elementColumns, config);
+    case 'heatmap':
+      return getHeatmapChartOptions(data, elementColumns, config);
     default:
       return getBarChartOptions(data, elementColumns, config);
   }

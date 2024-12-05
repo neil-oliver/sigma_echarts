@@ -37,7 +37,7 @@ export function getThemeForConfig(config: any): string {
         borderWidth: config?.stroke ? 1 : 0,
         color: (params: any) => {
             const color = params.color ?? config?.fillColor;
-            return config?.gradientFill ? getGradientColor(color) : color;
+            return color && config?.gradientFill ? getGradientColor(color) : color;
         }
     };
 
