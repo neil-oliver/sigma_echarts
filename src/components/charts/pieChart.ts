@@ -18,7 +18,10 @@ export const getPieChartOptions = (
     type: 'pie',
     radius: '50%',
     label: {
-      formatter: '{b}: {c} ({d}%)'
+      formatter: (params: any) => {
+        const value = typeof params.value === 'object' ? params.value[dimensions[1]] : params.value;
+        return `${params.name}: ${value} (${params.percent}%)`;
+      }
     },
     encode: {
       itemName: dimensions[0],
